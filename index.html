@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Job Portal - Home</title>
+  <style>
+    /* Reset and base */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f5f7fa;
+      color: #333;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Navigation styles */
+    nav {
+      background: #2563eb;
+      padding: 1rem 2rem;
+      box-shadow: 0 4px 10px rgba(37,99,235,0.25);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    nav .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    nav .logo {
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: #e0e7ff;
+      letter-spacing: 1.05px;
+      text-decoration: none;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+      margin: 0;
+      padding: 0;
+    }
+    nav ul li a {
+      color: #e0e7ff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: color 0.3s ease;
+      position: relative;
+      padding: 0.25rem 0;
+    }
+    nav ul li a:hover,
+    nav ul li a:focus {
+      color: #c7d2fe;
+    }
+    nav ul li a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      height: 3px;
+      width: 0;
+      background: #c7d2fe;
+      border-radius: 3px;
+      transition: width 0.3s ease;
+    }
+    nav ul li a:hover::after,
+    nav ul li a:focus::after {
+      width: 100%;
+    }
+
+    /* Hero section */
+    .hero {
+      flex-grow: 1;
+      max-width: 1100px;
+      margin: 4rem auto 4rem auto;
+      text-align: center;
+      padding: 0 1.5rem;
+    }
+    .hero h1 {
+      font-size: 3.25rem;
+      font-weight: 800;
+      line-height: 1.1;
+      color: #1e40af;
+      margin-bottom: 1rem;
+      text-shadow: 0 1px 6px rgba(37, 99, 235, 0.3);
+    }
+    .hero p {
+      font-size: 1.25rem;
+      color: #4b5563;
+      margin-bottom: 2.5rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .btn-primary {
+      background: #2563eb;
+      color: white;
+      padding: 1rem 2.4rem;
+      font-size: 1.2rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 6px 15px -4px rgba(37, 99, 235, 0.85);
+      transition: background-color 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-primary:hover,
+    .btn-primary:focus {
+      background: #1e40af;
+      outline: none;
+    }
+
+    /* Footer */
+    footer {
+      background: #2563eb;
+      color: #e0e7ff;
+      text-align: center;
+      padding: 1rem 0;
+      font-size: 0.9rem;
+      font-weight: 600;
+      box-shadow: 0 -4px 10px rgba(37, 99, 235, 0.25);
+      user-select: none;
+    }
+
+    /* Responsive nav menu for mobile */
+    @media (max-width: 640px) {
+      nav .container {
+        flex-wrap: wrap;
+      }
+      nav ul {
+        flex-wrap: wrap;
+        gap: 1rem;
+        justify-content: center;
+        margin-top: 0.75rem;
+      }
+      .hero h1 {
+        font-size: 2.25rem;
+      }
+      .hero p {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav role="navigation" aria-label="Primary Navigation">
+    <div class="container">
+      <a href="#" class="logo">JobPortal</a>
+      <ul>
+        <li><a href="first_page.html" aria-current="page">Home</a></li>
+        <li><a href="mini_project_1.html">Job Listing</a></li>
+        <li><a href="mini_project.html">Post Job</a></li>
+        <li><a href="post_job.html">Contact Us</a></li>
+      </ul>
+    </div>
+  </nav>
+  <main class="hero" role="main">
+    <h1>Find Your Dream Job or Post a Great Opportunity</h1>
+    <p>Browse thousands of jobs from top companies or post your job to get the best candidates. Whether you are looking for full-time, part-time, or contract work, we’ve got you covered.</p>
+    <a href="./mini_project.html" class="btn-primary" role="button">Post a Job</a>
+  </main>
+  <footer>
+    &copy; 2024 JobPortal. All Rights Reserved.
+  </footer>
+</body>
+</html

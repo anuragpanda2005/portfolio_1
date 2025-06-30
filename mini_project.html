@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Post a Job</title>
+  <style>
+    /* Reset and base */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f5f7fa;
+      color: #333;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      background-color: #2563eb;
+      color: white;
+      padding: 1em 0;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(37, 99, 235, 0.25);
+    }
+    header h1 {
+      color: white; /* Ensures heading color in nav is white */
+      margin: 0;
+    }
+    nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+    }
+    nav ul li {
+      display: inline;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: color 0.3s ease;
+      padding: 0.25rem 0;
+      position: relative;
+    }
+    nav a:hover,
+    nav a:focus {
+      color: #c7d2fe;
+      outline: none;
+    }
+    nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      height: 3px;
+      width: 0;
+      background: #c7d2fe;
+      border-radius: 3px;
+      transition: width 0.3s ease;
+    }
+    nav a:hover::after,
+    nav a:focus::after {
+      width: 100%;
+    }
+    .container {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+      max-width: 700px;
+      width: 100%;
+      padding: 2.5rem 3rem;
+      margin: 2rem auto;
+      flex-grow: 1;
+    }
+    h1 {
+      text-align: center;
+      font-weight: 700;
+      font-size: 2.25rem;
+      color: #1e40af;
+      margin-bottom: 1.5rem;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    label {
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+      display: inline-block;
+      color: #055160;
+    }
+    input[type="text"],
+    input[type="email"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 0.6rem 0.8rem;
+      font-size: 1rem;
+      border: 2px solid #cbd5e1;
+      border-radius: 8px;
+      transition: border-color 0.3s ease;
+      font-family: inherit;
+      resize: vertical;
+      min-height: 36px;
+    }
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    select:focus,
+    textarea:focus {
+      outline: none;
+      border-color: #2563eb;
+      box-shadow: 0 0 5px #2563ebaa;
+    }
+    textarea {
+      min-height: 100px;
+    }
+    .form-row {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .form-row > div {
+      flex: 1 1 300px;
+      min-width: 200px;
+    }
+    button {
+      background: #2563eb;
+      color: white;
+      font-weight: 700;
+      font-size: 1.1rem;
+      padding: 0.75rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      width: 100%;
+      margin-top: 1rem;
+      box-shadow: 0 6px 15px -4px rgba(37, 99, 235, 0.75);
+    }
+    button:hover {
+      background: #1e40af;
+    }
+    .error-message {
+      color: #dc2626;
+      font-size: 0.875rem;
+      margin-top: 0.15rem;
+    }
+    .success-message {
+      margin-top: 2rem;
+      background: #d1fae5;
+      border: 2px solid #22c55e;
+      padding: 1rem 1.5rem;
+      border-radius: 10px;
+      color: #166534;
+    }
+    .job-preview {
+      margin-top: 2rem;
+      border-radius: 10px;
+      background: white;
+      padding: 1.8rem 2rem;
+      box-shadow: 0 8px 16px -6px rgba(37, 99, 235, 0.4);
+    }
+    .job-preview h2 {
+      margin-top: 0;
+      color: #2563eb;
+      font-weight: 700;
+    }
+    .job-preview p {
+      line-height: 1.5;
+      margin: 0.2rem 0.5rem 1rem 0;
+    }
+    .label-inline {
+      font-weight: 600;
+      color: #475569;
+    }
+    /* Footer */
+    footer {
+      background: #2563eb;
+      color: #e0e7ff;
+      text-align: center;
+      padding: 1rem 0;
+      font-size: 0.9rem;
+      font-weight: 600;
+      box-shadow: 0 -4px 10px rgba(37, 99, 235, 0.25);
+      user-select: none;
+    }
+    @media (max-width: 480px) {
+      .form-row {
+        flex-direction: column;
+      }
+      .form-row > div {
+        min-width: 100%;
+      }
+      nav ul {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      nav ul li {
+        display: block;
+        margin: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Job Portal</h1>
+    <nav aria-label="Primary Navigation">
+      <ul>
+        <li><a href="first_page.html" aria-current="page">Home</a></li>
+        <li><a href="mini_project_1.html">Job Listing</a></li>
+        <li><a href="mini_project.html">Post Job</a></li>
+        <li><a href="post_job.html">Contact Us</a></li>
+      </ul>
+    </nav>
+  </header>
+  <div class="container" role="main">
+    <h1>Post a Job</h1>
+    <form id="jobForm" novalidate>
+      <div class="form-row">
+        <div>
+          <label for="jobTitle">Job Title <span aria-hidden="true" style="color:#dc2626;">*</span></label>
+          <input type="text" id="jobTitle" name="jobTitle" required aria-required="true" aria-describedby="jobTitleError" />
+          <div id="jobTitleError" class="error-message" aria-live="polite"></div>
+        </div>
+        <div>
+          <label for="company">Company Name <span aria-hidden="true" style="color:#dc2626;">*</span></label>
+          <input type="text" id="company" name="company" required aria-required="true" aria-describedby="companyError" />
+          <div id="companyError" class="error-message" aria-live="polite"></div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div>
+          <label for="location">Location <span aria-hidden="true" style="color:#dc2626;">*</span></label>
+          <input type="text" id="location" name="location" required aria-required="true" aria-describedby="locationError" />
+          <div id="locationError" class="error-message" aria-live="polite"></div>
+        </div>
+        <div>
+          <label for="jobType">Job Type <span aria-hidden="true" style="color:#dc2626;">*</span></label>
+          <select id="jobType" name="jobType" required aria-required="true" aria-describedby="jobTypeError">
+            <option value="" disabled selected>Select type</option>
+            <option value="full-time">Full-time</option>
+            <option value="part-time">Part-time</option>
+            <option value="contract">Contract</option>
+            <option value="temporary">Temporary</option>
+            <option value="internship">Internship</option>
+          </select>
+          <div id="jobTypeError" class="error-message" aria-live="polite"></div>
+        </div>
+      </div>
+      <div>
+        <label for="description">Job Description <span aria-hidden="true" style="color:#dc2626;">*</span></label>
+        <textarea id="description" name="description" required aria-required="true" aria-describedby="descriptionError" placeholder="Provide details about the job, responsibilities, etc."></textarea>
+        <div id="descriptionError" class="error-message" aria-live="polite"></div>
+      </div>
+      <div>
+        <label for="requirements">Requirements <span aria-hidden="true" style="color:#dc2626;">*</span></label>
+        <textarea id="requirements" name="requirements" required aria-required="true" aria-describedby="requirementsError" placeholder="List the required skills, experience, qualifications, etc."></textarea>
+        <div id="requirementsError" class="error-message" aria-live="polite"></div>
+      </div>
+      <div class="form-row">
+        <div>
+          <label for="salary">Salary Range</label>
+          <input type="text" id="salary" name="salary" placeholder="e.g. $50,000 - $70,000" />
+        </div>
+        <div>
+          <label for="email">Contact Email <span aria-hidden="true" style="color:#dc2626;">*</span></label>
+          <input type="email" id="email" name="email" required aria-required="true" aria-describedby="emailError" placeholder="you@example.com" />
+          <div id="emailError" class="error-message" aria-live="polite"></div>
+        </div>
+      </div>
+      <button type="submit">Post Job</button>
+    </form>
+    <div id="result" aria-live="polite"></div>
+  </div>
+  <footer>
+    &copy; 2024 JobPortal. All Rights Reserved.
+  </footer>
+  <script>
+    (function() {
+      const form = document.getElementById('jobForm');
+      const result = document.getElementById('result');
+
+      const fields = [
+        { id: 'jobTitle', name: 'Job Title', required: true },
+        { id: 'company', name: 'Company Name', required: true },
+        { id: 'location', name: 'Location', required: true },
+        { id: 'jobType', name: 'Job Type', required: true },
+        { id: 'description', name: 'Job Description', required: true },
+        { id: 'requirements', name: 'Requirements', required: true },
+        { id: 'email', name: 'Contact Email', required: true, type: 'email' }
+      ];
+
+      function validateEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(String(email).toLowerCase());
+      }
+
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        let isFormValid = true;
+
+        fields.forEach(field => {
+          const errorElem = document.getElementById(field.id + 'Error');
+          if (errorElem) errorElem.textContent = '';
+        });
+        result.innerHTML = '';
+
+        fields.forEach(field => {
+          const input = form.elements[field.id];
+          if (field.required) {
+            if (!input.value.trim()) {
+              const errorElem = document.getElementById(field.id + 'Error');
+              errorElem.textContent = `${field.name} is required.`;
+              isFormValid = false;
+            }
+          }
+          if (field.type === 'email' && input.value.trim()) {
+            if (!validateEmail(input.value.trim())) {
+              const errorElem = document.getElementById(field.id + 'Error');
+              errorElem.textContent = 'Please enter a valid email address.';
+              isFormValid = false;
+            }
+          }
+        });
+
+        if (!isFormValid) return;
+
+        const formData = {
+          jobTitle: form.jobTitle.value.trim(),
+          company: form.company.value.trim(),
+          location: form.location.value.trim(),
+          jobType: form.jobType.value,
+          description: form.description.value.trim(),
+          requirements: form.requirements.value.trim(),
+          salary: form.salary.value.trim(),
+          email: form.email.value.trim()
+        };
+
+        result.innerHTML = `
+          <div class="success-message" role="alert" tabindex="0">Job has been posted successfully!</div>
+          <section class="job-preview" tabindex="0" aria-label="Posted Job Details">
+            <h2>${escapeHtml(formData.jobTitle)}</h2>
+            <p><span class="label-inline">Company:</span> ${escapeHtml(formData.company)}</p>
+            <p><span class="label-inline">Location:</span> ${escapeHtml(formData.location)}</p>
+            <p><span class="label-inline">Job Type:</span> ${escapeHtml(capitalize(formData.jobType.replace(/-/g, ' ')))}</p>
+            <p><span class="label-inline">Salary Range:</span> ${formData.salary ? escapeHtml(formData.salary) : 'Not specified'}</p>
+            <hr />
+            <p><strong>Job Description:</strong></p><p>${escapeHtml(formData.description).replace(/\n/g, '<br>')}</p>
+            <p><strong>Requirements:</strong></p><p>${escapeHtml(formData.requirements).replace(/\n/g, '<br>')}</p>
+            <p><span class="label-inline">Contact Email:</span> <a href="mailto:${escapeHtml(formData.email)}">${escapeHtml(formData.email)}</a></p>
+          </section>
+        `;
+
+        form.reset();
+        form.jobTitle.focus();
+      });
+
+      function escapeHtml(text) {
+        const map = {
+          '&': '&amp;',
+          '<': '&lt;',
+          '>': '&gt;',
+          '"': '&quot;',
+          "'": '&#039;'
+        };
+        return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+      }
+
+      function capitalize(text) {
+        return text.replace(/\b\w/g, l => l.toUpperCase());
+      }
+    })();
+  </script>
+</body>
+</html>
+

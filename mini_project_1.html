@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Job Portal</title>
+    <style>
+        /* Reset and base */
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f7fa;
+            color: #333;
+        }
+
+        /* Header styles */
+        header {
+            background-color: #2563eb;
+            color: white;
+            padding: 1em 0;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.25);
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0 1em;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover,
+        nav a:focus {
+            color: #c7d2fe;
+            outline: none;
+        }
+
+        /* Main content styles */
+        main {
+            padding: 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        #job-filter {
+            background-color: #fff;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .filter-controls label,
+        .filter-controls select,
+        .filter-controls input,
+        .filter-controls button {
+            margin-right: 10px;
+            margin-bottom: 10px;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+
+        #job-listings h2 {
+            margin-top: 0;
+            color: #1e40af;
+        }
+
+        .job-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .job-item {
+            background-color: #fff;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .job-item h3 {
+            margin-top: 0;
+            color: #2563eb;
+        }
+
+        .job-item .company {
+            font-weight: bold;
+            color: #555;
+        }
+
+        .job-item .location {
+            color: #777;
+            font-style: italic;
+        }
+
+        .job-item .description {
+            margin-bottom: 10px;
+        }
+
+        .apply-button {
+            display: inline-block;
+            background-color: #28a745;
+            color: white;
+            padding: 8px 15px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            font-weight: 600;
+            font-family: inherit;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .apply-button:hover,
+        .apply-button:focus {
+            background-color: #1e7e34;
+            outline: none;
+        }
+
+        /* Footer styles */
+        footer {
+            text-align: center;
+            padding: 1em 0;
+            background-color: #2563eb;
+            color: white;
+            /* position: sticky; */
+            bottom: 0;
+            width: 100%;
+            user-select: none;
+            font-weight: 600;
+            font-family: inherit;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            nav ul li {
+                display: block;
+                margin: 0.5em 0;
+            }
+
+            .filter-controls label,
+            .filter-controls select,
+            .filter-controls input,
+            .filter-controls button {
+                display: block;
+                margin-right: 0;
+                width: 100%;
+                box-sizing: border-box;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Job Portal</h1>
+        <nav aria-label="Primary Navigation">
+           <ul>
+        <li><a href="first_page.html" aria-current="page">Home</a></li>
+        <li><a href="mini_project_1.html">Job Listing</a></li>
+        <li><a href="mini_project.html">Post Job</a></li>
+        <li><a href="post_job.html">Contact Us</a></li>
+      </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="job-filter" aria-label="Job Filter Section">
+            <h2>Filter Jobs</h2>
+            <div class="filter-controls">
+                <label for="category">Category:</label>
+                <select id="category" aria-controls="job-listings">
+                    <option value="">All</option>
+                    <option value="technology">Technology</option>
+                    <option value="marketing">Marketing</option>
+                    <option value="finance">Finance</option>
+                    <option value="sales">Sales</option>
+                </select>
+
+                <label for="location">Location:</label>
+                <select id="location" aria-controls="job-listings">
+                    <option value="">All</option>
+                    <option value="bhubaneswar">Bhubaneswar</option>
+                    <option value="delhi">Delhi</option>
+                    <option value="mumbai">Mumbai</option>
+                    <option value="kolkata">Kolkata</option>
+                </select>
+
+                <label for="search" class="visually-hidden">Search Keywords</label>
+                <input type="text" id="search" placeholder="Search keywords..." aria-controls="job-listings" aria-label="Search jobs by keywords" />
+
+                <button id="filter-button" type="button">Filter</button>
+            </div>
+        </section>
+
+        <section id="job-listings" aria-live="polite" aria-atomic="true">
+            <h2>Job Listings</h2>
+            <ul class="job-list">
+                <li class="job-item" data-category="technology" data-location="bhubaneswar" data-keywords="developer javascript frontend">
+                    <h3>Frontend Developer</h3>
+                    <p class="company">Tech Solutions Inc.</p>
+                    <p class="location">Bhubaneswar</p>
+                    <p class="description">Looking for a skilled frontend developer with React experience.</p>
+                    <a href="./post_job.html" class="apply-button" tabindex="0">Apply Now</a>
+                </li>
+                <li class="job-item" data-category="marketing" data-location="delhi" data-keywords="manager digital marketing social media">
+                    <h3>Digital Marketing Manager</h3>
+                    <p class="company">Global Marketing Ltd.</p>
+                    <p class="location">Delhi</p>
+                    <p class="description">Seeking a results-driven digital marketing manager.</p>
+                    <a href="./post_job.html" class="apply-button" tabindex="0">Apply Now</a>
+                </li>
+                <li class="job-item" data-category="finance" data-location="mumbai" data-keywords="analyst financial data excel">
+                    <h3>Financial Analyst</h3>
+                    <p class="company">Finance Group Corp.</p>
+                    <p class="location">Mumbai</p>
+                    <p class="description">Opportunity for a detail-oriented financial analyst.</p>
+                    <a href="./post_job.html" class="apply-button" tabindex="0">Apply Now</a>
+                </li>
+                <li class="job-item" data-category="sales" data-location="kolkata" data-keywords="executive sales business development">
+                    <h3>Sales Executive</h3>
+                    <p class="company">Sales Pro Agency</p>
+                    <p class="location">Kolkata</p>
+                    <p class="description">We are hiring a dynamic sales executive.</p>
+                    <a href="./post_job.html" class="apply-button" tabindex="0">Apply Now</a>
+                </li>
+                <li class="job-item" data-category="technology" data-location="delhi" data-keywords="engineer backend nodejs api">
+                    <h3>Backend Engineer</h3>
+                    <p class="company">Innovate Systems</p>
+                    <p class="location">Delhi</p>
+                    <p class="description">Hiring a backend engineer with Node.js and API development skills.</p>
+                    <a href="./post_job.html" class="apply-button" tabindex="0">Apply Now</a>
+                </li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Job Portal. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const filterButton = document.getElementById('filter-button');
+            const categorySelect = document.getElementById('category');
+            const locationSelect = document.getElementById('location');
+            const searchInput = document.getElementById('search');
+            const jobItems = document.querySelectorAll('.job-item');
+
+            function filterJobs() {
+                const selectedCategory = categorySelect.value.trim().toLowerCase();
+                const selectedLocation = locationSelect.value.trim().toLowerCase();
+                const searchText = searchInput.value.trim().toLowerCase();
+
+                let anyVisible = false;
+
+                jobItems.forEach(item => {
+                    const itemCategory = item.dataset.category.toLowerCase();
+                    const itemLocation = item.dataset.location.toLowerCase();
+                    const itemKeywords = item.dataset.keywords.toLowerCase();
+                    const itemText = item.textContent.toLowerCase();
+
+                    const categoryMatch = selectedCategory === '' || itemCategory === selectedCategory;
+                    const locationMatch = selectedLocation === '' || itemLocation === selectedLocation;
+                    const keywordMatch = searchText === '' || (itemKeywords.includes(searchText) || itemText.includes(searchText));
+
+                    if (categoryMatch && locationMatch && keywordMatch) {
+                        item.style.display = '';
+                        anyVisible = true;
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+
+                // Announce if no jobs found
+                const jobListingsSection = document.getElementById('job-listings');
+                let alertMsg = '';
+                if (!anyVisible) {
+                    alertMsg = 'No job listings match your criteria.';
+                }
+                jobListingsSection.setAttribute('aria-label', 'Job Listings' + (alertMsg ? '. ' + alertMsg : ''));
+            }
+
+            filterButton.addEventListener('click', filterJobs);
+            searchInput.addEventListener('input', () => {
+                // Optional: filter as the user types
+                filterJobs();
+            });
+        });
+    </script>
+</body>
+</html>
